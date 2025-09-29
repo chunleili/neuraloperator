@@ -1,3 +1,9 @@
+import sys
+import os
+
+# 将项目根目录添加到Python路径
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 import torch
 import wandb
 import sys
@@ -16,9 +22,10 @@ config_name = 'cfd'
 from zencfg import make_config_from_cli
 import sys 
 sys.path.insert(0, '../')
-from config.gino_carcfd_config import Default
+from config.gino_carcfd_config import Default, MyConfig
+import datetime
 
-config = make_config_from_cli(Default)
+config = make_config_from_cli(MyConfig)
 config = config.to_dict()
 
 
@@ -31,13 +38,14 @@ if config.data.sdf_query_resolution < config.model.fno_n_modes[0]:
 #Set up WandB logging
 wandb_init_args = {}
 config_name = 'car-pressure'
+date = datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
 if config.wandb.log and is_logger:
     wandb.login(key=get_wandb_api_key())
     if config.wandb.name:
         wandb_name = config.wandb.name
     else:
         wandb_name = '_'.join(
-            f'{var}' for var in [config_name, config.data.sdf_query_resolution])
+            f'{var}' for var in [config_name, config.data.sdf_query_resolution, date])
 
     wandb_init_args = dict(config=config, 
                            name=wandb_name, 

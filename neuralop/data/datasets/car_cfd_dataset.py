@@ -75,6 +75,14 @@ class CarCFDDataset(MeshDataModule):
         if download:
             download_from_zenodo_record(record_id=self.zenodo_record_id,
                                         root=root_dir)
+        # name of tar file is the same of root_dir + tar + gz
+        tar_file_path = root_dir / (root_dir.name + '.tar.gz')
+
+        # decompress the tar.gz file to the root dir
+        import tarfile
+        with tarfile.open(str(tar_file_path), 'r:gz') as tgz:
+            tgz.extractall(path=root_dir.parent)
+        
         super().__init__(
             root_dir=root_dir,
             item_dir_name='data/',

@@ -6,7 +6,7 @@ from .models import ModelConfig, GINO_Small3d
 from .opt import PatchingConfig
 from .wandb import WandbConfig
 class CarCFDDatasetConfig(ConfigBase):
-    root: str = "~/data/car-pressure-data/processed-car-pressure-data"
+    root: str = "./data/car-pressure-data/processed-car-pressure-data"
     sdf_query_resolution: int = 32
     n_train: int = 500
     n_test: int = 111
@@ -31,3 +31,23 @@ class Default(ConfigBase):
     data: CarCFDDatasetConfig = CarCFDDatasetConfig()
     patching: PatchingConfig = PatchingConfig()
     wandb: WandbConfig = WandbConfig() # default empty
+
+
+class MyWandbConfig(WandbConfig):
+    log: bool = True
+    entity: str = "chunleili-ucl"
+    project: str = "car-cfd"
+    name: Optional[str] = None
+    group: Optional[str] = None
+    sweep: bool = False
+    log_output: bool = True
+
+class MyConfig(Default):
+    n_params_baseline: Optional[Any] = None
+    verbose: bool = True
+    distributed: DistributedConfig = DistributedConfig()
+    model: ModelConfig = GINO_Small3d()
+    opt: ConfigBase = CarCFDOptConfig()
+    data: CarCFDDatasetConfig = CarCFDDatasetConfig()
+    patching: PatchingConfig = PatchingConfig()
+    wandb: WandbConfig = MyWandbConfig() # default empty
