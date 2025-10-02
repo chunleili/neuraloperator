@@ -93,3 +93,4 @@ checkpoints/
 /*.png
 data
 wandb
+*.npy

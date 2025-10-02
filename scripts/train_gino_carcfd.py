@@ -190,4 +190,6 @@ trainer.train(
               scheduler=scheduler,
               training_loss=train_loss_fn,
               eval_losses={config.opt.testing_loss: test_loss_fn},
-              regularizer=None,)
+              regularizer=None,
+              save_every=100,
+              save_dir= f"./checkpoints/{config_name}")
