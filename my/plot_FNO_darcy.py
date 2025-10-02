@@ -35,7 +35,7 @@ train_loader, test_loaders, data_processor = load_darcy_flow_small(
 data_processor = data_processor.to(device)
 
 
-model = FNO.from_checkpoint(save_folder='./checkpoints/', save_name='echo_20')
+model = FNO.from_checkpoint(save_folder='./checkpoints/FNO_darcy', save_name='epoch20')
 model = model.to(device)
 
 # %%
@@ -84,7 +84,11 @@ for index in range(3):
 fig.suptitle('Inputs, ground-truth output and prediction (16x16).', y=0.98)
 plt.tight_layout()
 fig.show()
-fig.savefig("FNO_darcy_pred.png")
+import os
+save_dir = "my/plot_FNO_darcy"
+os.makedirs(f"{save_dir}", exist_ok=True)
+fig.savefig(f"{save_dir}/FNO_darcy_pred.png")
+print(f"plot {save_dir}/FNO_darcy_pred.png")
 
 
 # %%
@@ -132,7 +136,10 @@ for index in range(3):
 fig.suptitle('Inputs, ground-truth output and prediction (32x32).', y=0.98)
 plt.tight_layout()
 fig.show()
-fig.savefig("FNO_darcy_superres_pred.png")
+import os
+os.makedirs("my/plot_FNO_darcy", exist_ok=True)
+fig.savefig(f"{save_dir}/FNO_darcy_superres_pred.png")
+print(f"plot {save_dir}/FNO_darcy_superres_pred.png")
 
 # %%
 # We only trained the model on data at a resolution of 16x16, and with no modifications 

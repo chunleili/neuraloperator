@@ -32,6 +32,7 @@ def load_GT():
     return sample
 
 def infer(sample):
+    print("准备进行推理...")
     # 步骤 2: 导入模型
     # -----------------------------
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
@@ -157,11 +158,13 @@ def plot(pred_pressure, sample):
         cbar2.set_label("Error (%)")
 
 
-    plt.suptitle("GINO Car Pressure: Prediction and Error Analysis", fontsize=16)
-    # 更新保存的文件名
-    plt.savefig("car_pressure_prediction_with_error.png", dpi=300, bbox_inches='tight')
-    print("预测与误差分析图已保存至 car_pressure_prediction_with_error.png")
+    plt.suptitle("GINO Car Pressure Prediction", fontsize=16)
+
     plt.show()
+    save_dir = "my/plot_GINO"
+    os.makedirs(save_dir, exist_ok=True)
+    plt.savefig(f"{save_dir}/car_pressure_prediction.png", dpi=300, bbox_inches='tight')
+    print(f"预测与误差分析图已保存至 {save_dir}/car_pressure_prediction.png")
 
 def calc_L2_error(pred_pressure, GT):
     # 新增：计算并打印 L2 测试误差

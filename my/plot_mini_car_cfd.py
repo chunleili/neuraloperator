@@ -58,8 +58,11 @@ ax.view_init(elev=20, azim=150, roll=0, vertical_axis='y')
 ax.set_title("Pressure over car mesh vertices")
 fig.colorbar(scatter, pad=0.2, label="normalized pressure", ax=ax)
 plt.draw()
-fig.savefig("car_pressure.png", dpi=300)
-
+import os
+save_dir = "my/plot_mini_carcfd"
+os.makedirs(save_dir, exist_ok=True)
+fig.savefig(f"{save_dir}/1.Visualizing the car.png", dpi=300,)
+print(f"plot {save_dir}/1.Visualizing the car.png")
 
 # %%
 # Query points  
@@ -82,6 +85,9 @@ ax.set_zlabel("z")
 ax.legend()
 ax.view_init(elev=20, azim=150, roll=0, vertical_axis='y')
 ax.set_title("Query points and vertices")
+plt.draw()
+fig.savefig(f"my/plot_mini_carcfd/2.Query points and vertices.png", dpi=300)
+print("plot my/plot_mini_carcfd/2.Query points and vertices.png")
 # %%
 # Neighbor search between 3D point clouds
 # In :doc:`../layers/plot_neighbor_search` we demonstrate our neighbor search
@@ -134,7 +140,8 @@ for ax in ax1,ax2:
     ax.set_yticks([])
     ax.set_zticks([])
 plt.draw()
-
+fig.savefig(f"my/plot_mini_carcfd/3.Visualizing neighborhoods.png", dpi=300)
+print("plot my/plot_mini_carcfd/3.Visualizing neighborhoods.png")
 
 # %%
 # **Connecting neighbors to query**
@@ -195,3 +202,5 @@ for nbr in neighbors:
 
 fig.tight_layout()
 plt.draw()
+fig.savefig(f"my/plot_mini_carcfd/4.One query point.png", dpi=300)
+print("plot my/plot_mini_carcfd/4.One query point.png")
